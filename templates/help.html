@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>shop</title>
+	<link rel="stylesheet" href="../static/css/main.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=FdOabDRrhe_eZiLTVw90YNSlfS3RsN1ZbrFAYAgkTXUIVJ3pVmlHjemyWarM4GrmzNvDkjuQVKgoUCA_5cCP7HUOAJoxJFBVmEY_DsOyat_248SV9Z7Fii4yYeNb5-Ib9_0BthCDQl5w8NF9STN9FA" charset="UTF-8"></script>
+</head>
+
+<body style='background-color:#4682B4;'>
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	
+	{% if current_user.is_authenticated %}
+	<header>
+				<nav>
+					<ul class='menu'>
+						<li>
+							<a href="/">Home</a>
+						</li>
+
+						<li>
+							<a href="/service">Service</a>
+						</li>
+
+						<li>
+							<a href="/help">Contacts&help</a>
+						</li>
+						
+					</ul>
+				</nav>
+		 <div class="block-top-auth">
+         <p><a href="/logout">Sign out</a></p>  
+         <p><a href="/cart">Cart</a></p>  
+       </div>  
+ 	</header>
+ 	{% else %}
+	<header>
+				<nav>
+					<ul class='menu'>
+						<li>
+							<a href="/">Home</a>
+						</li>
+
+						<li>
+							<a href="/service">Service</a>
+						</li>
+
+						<li>
+							<a href="/help">Contacts&help</a>
+						</li>
+						
+					</ul>
+				</nav>
+		 <div class="block-top-auth">
+         <p><a href="/authorization">Sign in</a></p>  
+         <p><a href="/register">Register</a></p>  
+         <p><a href="/cart">Cart</a></p>  
+       </div>  
+ 	</header>
+ 	{% endif %}
+
+ 	<div class='line'></div>
+ 	
+	<div class='help'>По всем вопросам - <a style='color: black;'  href="mailto:mail@gmail.com">mail@gmail.com</a></div>
+<h1>Возможности работы с API</h1>
+<table class="table table-sm table-inverse" style="margin-left: 2%;width: 75%">
+  <thead>
+    <tr class="table-active">
+      <th style="width:50%">Действие</th>
+      <th style="width:20%">Метод</th>
+      <th style="width:30%">Адрес</th>
+    </tr>
+  </thead>
+  <tbody>
+        <tr>
+            <td>Получить данные об одном пользователе</td>
+            <td>get</td>
+            <td>/api/users/&lt;int:user_id&gt;</td>
+        </tr>
+        <tr>
+            <td>Получить данные обо всех пользователях</td>
+            <td>get</td>
+            <td>/api/users</td>
+        </tr>
+        <tr>
+            <td>Добавить пользователя</td>
+            <td>post</td>
+            <td>/api/users</td>
+        </tr>
+        <tr>
+            <td><br></td>
+            <td> </td>
+            <td> </td>
+        </tr>
+        <tr>
+            <td>Получить данные о всех товарах</td>
+            <td>get</td>
+            <td>/api/goods</td>
+        </tr>
+        <tr>
+            <td>Добавить товар</td>
+            <td>post</td>
+            <td>/api/goods</td>
+        </tr>
+        <tr>
+            <td>Получить данные о категории товаров(1-7)</td>
+            <td>get</td>
+            <td>/api/goods/&lt;category_id&gt;</td>
+        </tr>
+        <tr>
+            <td>Получить данные об одном товаре</td>
+            <td>get</td>
+            <td>/api/goods/one/&lt;int:good_idd&gt;</td>
+        </tr>
+        <tr>
+            <td><br></td>
+            <td> </td>
+            <td> </td>
+        </tr>
+        <tr>
+            <td>Получить данные о всех текущих корзинах</td>
+            <td>get</td>
+            <td>/api/cart/all</td>
+        </tr>
+        <tr>
+            <td>Получить данные о всех завершенных заказах</td>
+            <td>get</td>
+            <td>/api/completed_cart/all</td>
+        </tr>
+        
+
+  </tbody>
+</table>
+
+	 
+</body>
+</html>
+

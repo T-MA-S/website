@@ -1,0 +1,154 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>shop</title>
+	<link rel="stylesheet" href="../static/css/main.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=xOdSoXCfkGlLJOJA84xkulohsEfDxhoZIISPXIh04eDfFAxwIna647fOWbPXox4fSJ_MwVB2LBoq5u2aBkk5ssmREJtKHtJ9kCdYnKJyxLWUL24LFleOlPyKMdiPcxN22K2Ve7MeQqaLcnthe6tVxQ" charset="UTF-8"></script></head>
+
+<body style='background-color: #4682B4;'>
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<script>var a = document.getElementById('h'); a.value = obj.id;</script>
+	{% if current_user.is_authenticated %}
+	<header>
+				<nav>
+					<ul class='menu'>
+						<li>
+							<a href="/">Home</a>
+						</li>
+
+						<li>
+							<a href="/service">Service</a>
+						</li>
+
+						<li>
+							<a href="/help">Contacts&help</a>
+						</li>
+						
+					</ul>
+				</nav>
+		 <div class="block-top-auth">
+         <p><a href="/logout">Sign out</a></p>  
+         <p><a href="/cart">Cart</a></p>  
+       </div>  
+ 	</header>
+ 	{% else %}
+	<header>
+				<nav>
+					<ul class='menu'>
+						<li>
+							<a href="/">Home</a>
+						</li>
+
+						<li>
+							<a href="/service">Service</a>
+						</li>
+
+						<li>
+							<a href="/help">Contacts&help</a>
+						</li>
+						
+					</ul>
+				</nav>
+		 <div class="block-top-auth">
+         <p><a href="/authorization">Sign in</a></p>  
+         <p><a href="/register">Register</a></p>  
+         <p><a href="/cart">Cart</a></p>  
+       </div>  
+ 	</header>
+ 	{% endif %}
+
+ 	<div class='line'></div>
+
+
+
+
+
+
+	<section>
+		<div class='table1'>
+		<table border="1" cellpadding="20">
+   
+			<tr> 
+				<th>Категории товаров:</th>
+			</tr> 
+
+			<tr>
+				<td><a href="/catalog/1">Процессоры</a></td>
+			</tr>
+
+			<tr>
+				<td><a href="/catalog/2">Материнские платы</a></td>
+			</tr>
+  				
+  			<tr>
+				<td><a href="/catalog/3">Видеокарты</a></td>
+			</tr>
+  				
+  			<tr>
+				<td><a href="/catalog/4">ОЗУ</a></td>
+			</tr>
+  				
+  			<tr>
+				<td><a href="/catalog/5">Блоки питания</a></td>
+			</tr>
+  				
+  			<tr>
+				<td><a href="/catalog/6">SSD/HDD</a></td>
+			</tr>
+  				
+  			<tr>
+				<td><a href="/catalog/7">Корпуса</a></td>
+			</tr>
+
+
+  		
+	 </table>
+	</div>
+	{% if current_user.is_authenticated %}
+	<form  method='post'>
+	<table class='content' border="1" cellpadding="40">
+   
+			<tr> 
+				<th>Производитель</th>
+				<th>Наименование</th>
+				<th>Характеристики</th>
+				<th>Цена</th>
+				<th></th>
+				
+			</tr>
+  			
+  			{% for item in goods['goods'] %}
+  			<tr>
+				<td>{{item["Producer_id"]}}</td>
+				<td>{{item["Good_name"]}}</td>
+				<td>{{item["info"]}}</td>
+				<td>{{item["price"]}}р</td>
+
+				<td>
+					<button type="submit" name="{{ item['id'] }}" class="btn btn-primary">В корзину</button></td>
+			</tr>
+    		{% endfor %}
+    {% else %}
+    <h1>Зарегистрируйтесь или войдите, чтобы просмотреть содержимое</h1>
+    {% endif %}
+
+		
+  		
+
+	 	</table>
+	</form> 
+
+</section>
+
+
+</body>
+</html>
+
