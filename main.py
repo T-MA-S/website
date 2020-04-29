@@ -5,6 +5,7 @@ from data.carts import Cart
 from data.users import User
 from data.Category import Category
 import shop_api
+import os
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_wtf import FlaskForm
 
@@ -141,4 +142,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
