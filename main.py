@@ -4,6 +4,7 @@ from data import db_session
 from data.goods import Good
 from data.carts import Cart
 from data.users import User
+import os
 from data.Category import Category
 from data.completed_cart import CompletedCart
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -320,4 +321,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
