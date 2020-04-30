@@ -16,9 +16,6 @@ from wtforms.validators import DataRequired
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'tmas_secret_key'
 
-blueprint = flask.Blueprint('shop_api', __name__,
-                            template_folder='templates')
-
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -139,7 +136,7 @@ def add_to_db_form():
         return redirect('/cart')
 
 
-@blueprint.route('/api/users', methods=['GET', 'POST'])
+@app.route('/api/users', methods=['GET', 'POST'])
 def get_users():
     try:
         if request.method == 'GET':
@@ -175,7 +172,7 @@ def get_users():
         return e
 
 
-@blueprint.route('/api/users/<int:user_id>', methods=['GET', 'POST'])
+@app.route('/api/users/<int:user_id>', methods=['GET', 'POST'])
 def get_one_user(user_id):
     if request.method == 'GET':
         session = db_session.create_session()
@@ -187,7 +184,7 @@ def get_one_user(user_id):
         }
 
 
-@blueprint.route('/api/goods', methods=['GET', 'POST'])
+@app.route('/api/goods', methods=['GET', 'POST'])
 def get_goods():
     if request.method == 'GET':
         session = db_session.create_session()
@@ -216,7 +213,7 @@ def get_goods():
         return jsonify({'success': 'OK'})
 
 
-@blueprint.route('/api/cart/all')
+@app.route('/api/cart/all')
 def get_cart():
     session = db_session.create_session()
     goods = session.query(Cart).all()
@@ -227,7 +224,7 @@ def get_cart():
     }
 
 
-@blueprint.route('/api/completed_cart/all')
+@app.route('/api/completed_cart/all')
 def get_completed_cart():
     session = db_session.create_session()
     goods = session.query(CompletedCart).all()
@@ -238,7 +235,7 @@ def get_completed_cart():
     }
 
 
-@blueprint.route('/api/goods/one/<int:good_id>')
+@app.route('/api/goods/one/<int:good_id>')
 def get_one_good(good_id):
     session = db_session.create_session()
     goods = session.query(Good).filter(Good.id == good_id)
@@ -249,7 +246,7 @@ def get_one_good(good_id):
     }
 
 
-@blueprint.route('/api/goods/<category_id>', methods=['GET'])
+@app.route('/api/goods/<category_id>', methods=['GET'])
 def get_one_category(category_id):
     session = db_session.create_session()
     goods = session.query(Good).filter(Good.Category_id == category_id)
@@ -260,7 +257,7 @@ def get_one_category(category_id):
     }
 
 
-@blueprint.route('/catalog/<category_id>', methods=['POST', 'GET'])
+@app.route('/catalog/<category_id>', methods=['POST', 'GET'])
 def category(category_id):
     if request.method == 'GET':
         return flask.render_template("catalog.html", goods=get_one_category(category_id))
@@ -279,7 +276,7 @@ def category(category_id):
         return flask.render_template("catalog.html", goods=get_one_category(category_id))
 
 
-@blueprint.route('/cart', methods=['POST', 'GET'])
+@app.route('/cart', methods=['POST', 'GET'])
 def cart():
     if request.method == 'GET':
         if current_user.is_authenticated:
@@ -302,7 +299,7 @@ def cart():
         return render_template("cart.html", username=current_user.name, goods=get_cart())
 
 
-@blueprint.route('/catalog')
+@app.route('/catalog')
 def catalog():
     try:
         return flask.render_template("catalog.html", goods=get_goods())
@@ -310,13 +307,12 @@ def catalog():
         return e
 
 
-@blueprint.route('/completed_cart')
+@app.route('/completed_cart')
 def completed_cart():
     return flask.render_template("completed_cart.html", username=current_user.name, goods=get_completed_cart())
 
 
 def main():
-    app.register_blueprint(blueprint)
     app.run()
 
 
