@@ -20,7 +20,7 @@ producers = {'1': 'Intel', '2': 'AMD', '3': 'Gigabyte', '4': 'Asus', '5': 'MSI',
 
 @blueprint.route('/api/users', methods=['GET', 'POST'])
 def get_users():
-        try:
+    try:
         if request.method == 'GET':
             session = db_session.create_session()
             users = session.query(User).all()
