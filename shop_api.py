@@ -20,35 +20,38 @@ producers = {'1': 'Intel', '2': 'AMD', '3': 'Gigabyte', '4': 'Asus', '5': 'MSI',
 
 @blueprint.route('/api/users', methods=['GET', 'POST'])
 def get_users():
-    if request.method == 'GET':
-        session = db_session.create_session()
-        users = session.query(User).all()
-        return {
-            'users':
-                [item.to_dict(only=('name', 'surname', 'is_admin'))
-                 for item in users]
-        }
-    elif request.method == 'POST':
-        if not request.json:
-            return {'error': 'Empty request'}
-        elif not all(key in request.json for key in
-                     ['name', 'surname', 'email', 'password', 'is_admin']):
-            return {'error': 'Bad request'}
-        session = db_session.create_session()
+        try:
+        if request.method == 'GET':
+            session = db_session.create_session()
+            users = session.query(User).all()
+            return {
+                'users':
+                    [item.to_dict(only=('name', 'surname', 'is_admin'))
+                     for item in users]
+            }
+        elif request.method == 'POST':
+            if not request.json:
+                return {'error': 'Empty request'}
+            elif not all(key in request.json for key in
+                         ['name', 'surname', 'email', 'password', 'is_admin']):
+                return {'error': 'Bad request'}
+            session = db_session.create_session()
 
-        if session.query(User).filter(User.email == request.json['email']).first():
-            return {'error': 'user exists'}
+            if session.query(User).filter(User.email == request.json['email']).first():
+                return {'error': 'user exists'}
 
-        user = User(
-            name=request.json['name'],
-            surname=request.json['surname'],
-            email=request.json['email'],
-            is_admin=request.json['is_admin']
-        )
-        user.set_password(request.json['password'])
-        session.add(user)
-        session.commit()
-        return jsonify({'success': 'OK'})
+            user = User(
+                name=request.json['name'],
+                surname=request.json['surname'],
+                email=request.json['email'],
+                is_admin=request.json['is_admin']
+            )
+            user.set_password(request.json['password'])
+            session.add(user)
+            session.commit()
+            return jsonify({'success': 'OK'})
+    except Exception as e:
+        return e
 
 
 @blueprint.route('/api/users/<int:user_id>', methods=['GET', 'POST'])
