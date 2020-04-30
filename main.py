@@ -5,11 +5,9 @@ from data.goods import Good
 from data.carts import Cart
 from data.users import User
 from data.Category import Category
-import shop_api
 from data.completed_cart import CompletedCart
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_wtf import FlaskForm
-from flask_ngrok import run_with_ngrok
 from wtforms.fields.html5 import EmailField
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
@@ -318,7 +316,6 @@ def completed_cart():
 
 def main():
     app.register_blueprint(blueprint)
-    run_with_ngrok(app)
     app.run()
 
 
