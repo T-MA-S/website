@@ -18,6 +18,7 @@ app.config['SECRET_KEY'] = 'tmas_secret_key'
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+db_session.global_init("db/pccomponents.db")
 
 
 @login_manager.user_loader
@@ -135,7 +136,6 @@ def add_to_db_form():
 
 
 def main():
-    db_session.global_init("db/pccomponents.db")
 
     app.register_blueprint(shop_api.blueprint)
     app.run()
