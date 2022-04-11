@@ -132,7 +132,7 @@ def add_to_db_form():
         session = db_session.create_session()
         session.add(good)
         session.commit()
-        pass
+
 
         return redirect('/cart')
 
