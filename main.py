@@ -132,6 +132,7 @@ def add_to_db_form():
         session = db_session.create_session()
         session.add(good)
         session.commit()
+        pass
 
         return redirect('/cart')
 
@@ -170,6 +171,7 @@ def get_users():
             return jsonify({'success': 'OK'})
     except Exception as e:
         return e
+
 
 
 @app.route('/api/users/<int:user_id>', methods=['GET', 'POST'])
